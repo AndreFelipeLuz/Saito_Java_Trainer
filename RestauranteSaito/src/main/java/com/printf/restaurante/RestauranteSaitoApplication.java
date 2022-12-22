@@ -1,4 +1,4 @@
-package com.printf.restaurante.app;
+package com.printf.restaurante;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
