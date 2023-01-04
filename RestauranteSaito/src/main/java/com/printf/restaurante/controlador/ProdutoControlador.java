@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.printf.restaurante.modelos.Produto;
 import com.printf.restaurante.modelos.repositorios.ProdutoRepositorio;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ProdutoControlador {
@@ -20,8 +22,8 @@ public class ProdutoControlador {
 	@Autowired
 	private ProdutoRepositorio repositorio;
 	
-	@GetMapping(path = "/mostrarProduto")
-	public List<Produto> mostrarProduto() {
+	@GetMapping(path = "/mostrarProdutos")
+	public List<Produto> mostrarProdutos() {
 		return (List<Produto>) repositorio.findAll();
 	}
 	@GetMapping(path = "/mostrarProduto/{codigo}")
@@ -45,4 +47,30 @@ public class ProdutoControlador {
         return ResponseEntity.noContent().build();
     }
     
+	public List<Produto> pegarProdutos(List<Long> id){
+		List<Produto> produtos = new ArrayList<>();
+		Optional<Produto> produto;
+		long idEncontrar = 0;
+		for(int i = 0; i < id.size(); i++){
+			idEncontrar = id.get(i);
+			produto = repositorio.findById(idEncontrar);
+			produtos.add(produto.get());
+		}
+		return produtos;
+	}
+
 }
+
+/*
+ * 	public List<Produto> pegarProdutos(List<Long> id){
+		List<Produto> produtos = new ArrayList<>();
+		Produto produto;
+		long idEncontrar;
+		for(int i = 0; i < id.size(); i++){
+			idEncontrar = id.get(i);
+			produto = (Produto) consultarProduto(idEncontrar).getBody();
+			produtos.add(produto);
+		}
+		return produtos;
+	}
+ */

@@ -11,7 +11,7 @@ public class Produto {
     private Long id;
     @Column(name="nome")
     private String nome;
-    @Column(name="preco")
+    @Column(name="precoDoProduto")
     private Double precoDoProduto;
     @Column(name="descricao")
     private String descricao;

@@ -13,6 +13,7 @@ import com.printf.restaurante.modelos.Cliente;
 import com.printf.restaurante.modelos.repositorios.ClienteRepositorio;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class clienteControlador {
@@ -25,7 +26,7 @@ public class clienteControlador {
 		return (List<Cliente>) repositorio.findAll();
 	}
 	@GetMapping(path = "/mostrarcliente/{codigo}")
-	public ResponseEntity consultar(@PathVariable("codigo") long codigo) {
+	public ResponseEntity consultarCliente(@PathVariable("codigo") long codigo) {
 		return repositorio.findById(codigo).map(record -> ResponseEntity.ok().body(record)).orElse(ResponseEntity.notFound().build());
 	}
 	
@@ -44,4 +45,10 @@ public class clienteControlador {
     	repositorio.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+	public Cliente pegarCliente(Long id){
+		Optional<Cliente> cliente = repositorio.findById(id);
+		return cliente.get();
+	}
+
 }
